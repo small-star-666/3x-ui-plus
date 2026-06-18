@@ -6,4 +6,4 @@ echo "net.ipv4.tcp_congestion_control=bbr" | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 
 # 3. 验证是否开启成功
-sysctl net.ipv4.tcp_congestion_control
+sudo sysctl net.ipv4.tcp_congestion_control
