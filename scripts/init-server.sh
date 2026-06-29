@@ -18,6 +18,17 @@ sudo apt update
 sudo apt install git -y
 git clone https://github.com/small-star-666/3x-ui-plus.git
 
+# 购买域名
+前往 https://www.spaceship.com 购买域名
+设置 名称服务器和DNS
+
+# cloudflare
+前往 https://dash.cloudflare.com 设置买到的域名
+配置 DNF SSL/TLS 配置规则
+选择 点击域名--> SSL/TLS --> 源服务器 --> 创建证书
+
+# cert
+添加 公钥私钥即可
 
 # 1. 将 BBR 配置写入系统设置
 echo "net.core.default_qdisc=fq" | sudo tee -a /etc/sysctl.conf
