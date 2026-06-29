@@ -17,6 +17,8 @@ sudo systemctl status docker
 sudo apt update
 sudo apt install git -y
 git clone https://github.com/small-star-666/3x-ui-plus.git
+切换到cert分支 git checkout cert
+
 
 # 购买域名
 前往 https://www.spaceship.com 购买域名
