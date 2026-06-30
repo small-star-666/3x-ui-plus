@@ -1,37 +1,4 @@
-# 安装docker
-sudo apt update
-sudo apt upgrade -y
-sudo apt install -y apt-transport-https ca-certificates curl gnupg lsb-release
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-echo \
-"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt update
-sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-sudo systemctl enable docker
-sudo systemctl start docker
-sudo systemctl status docker
-
-# 安装git
-sudo apt update
-sudo apt install git -y
-git clone https://github.com/small-star-666/3x-ui-plus.git
-切换到cert分支 git checkout cert
-
-
-# 购买域名
-前往 https://www.spaceship.com 购买域名
-设置 名称服务器和DNS
-
-# cloudflare
-前往 https://dash.cloudflare.com 设置买到的域名
-配置 DNF SSL/TLS 配置规则
-选择 点击域名--> SSL/TLS --> 源服务器 --> 创建证书
-
-# cert
-添加 公钥私钥即可
-
+############ 优化网络配置 ############
 # 1. 将 BBR 配置写入系统设置
 echo "net.core.default_qdisc=fq" | sudo tee -a /etc/sysctl.conf
 echo "net.ipv4.tcp_congestion_control=bbr" | sudo tee -a /etc/sysctl.conf
