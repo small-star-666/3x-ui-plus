@@ -35,4 +35,4 @@ echo "切换至指定 cert 分支..."
 cd 3x-ui-plus || exit
 git checkout cert
 
-echo "基础环境安装完成！请在 cert 文件夹中放入你的公钥和私钥证书。"
+echo "基础环境安装完成！请在 cert 文件夹中放入你的公钥 gegeda.crt 和私钥证书 gegeda.key。"
