@@ -51,3 +51,16 @@ docker compose logs -f
 free -h
 ```
 
+## 🛠️ 五、 脚本格式化 (修复 Windows 换行符报错)
+### 1. 方案 A：使用 sed 命令（最推荐，免安装，不占内存）
+```bash
+sed -i 's/\r$//' script.sh
+```
+
+### 2. 方案 B：使用 dos2unix 工具
+```bash
+# Ubuntu/Debian 安装：
+apt install dos2unix -y
+# 转换命令：
+dos2unix script.sh
+```

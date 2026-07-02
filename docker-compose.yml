@@ -3,13 +3,19 @@ services:
     image: ghcr.io/small-star-666/3x-ui-plus:latest
     container_name: 3xui_plus_app
     volumes:
-      - $PWD/db/:/etc/x-ui/
-      - $PWD/cert/:/root/cert/
+      # 使用相对路径更安全，防止部分自动化脚本找不到 $PWD 变量
+      - ./db/:/etc/x-ui/
+      - ./cert/:/root/cert/
     environment:
       XRAY_VMESS_AEAD_FORCED: "false"
       # 如果你在宿主机上配置网络，建议关闭容器内的 fail2ban，改由宿主机控制，减少容器内多进程的 CPU 争抢
       XUI_ENABLE_FAIL2BAN: "false"
+      # ========== 核心小内存优化环境变量 ==========
+      GOGC: "10"            # 极其激进的垃圾回收，内存稍微上涨就立刻释放（默认 100）
+      GOMEMLIMIT: "90MiB"   # 严格将 Go 软内存上限控制在 90MB 左右
     tty: true
     network_mode: host
     # 推荐改为 always，确保机器因任何原因重启（如 AWS 维护、内存溢出后系统放回）容器都能立刻自愈
     restart: always
+    # ========== 核心硬限制（200M 防爆盾） ==========
+    mem_limit: 200m
