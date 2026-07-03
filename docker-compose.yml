@@ -11,7 +11,7 @@ services:
       # 如果你在宿主机上配置网络，建议关闭容器内的 fail2ban，改由宿主机控制，减少容器内多进程的 CPU 争抢
       XUI_ENABLE_FAIL2BAN: "false"
       # ========== 核心小内存优化环境变量 ==========
-      GOGC: "10"            # 极其激进的垃圾回收，内存稍微上涨就立刻释放（默认 100）
+      GOGC: "50"            # 极其激进的垃圾回收，内存稍微上涨就立刻释放（默认 100）
       GOMEMLIMIT: "90MiB"   # 严格将 Go 软内存上限控制在 90MB 左右
     tty: true
     network_mode: host
