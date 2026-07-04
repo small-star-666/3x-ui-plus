@@ -21,6 +21,7 @@
 | `xxx.xyz/su/*`           | 禁用 |
 | `xxx.xyz/path/*`         | 禁用 |
 | `xxx.xyz/maigejuzi666/*` | 禁用 |
+| `xxx.xyz/*`              | 命中 Pages 项目 | 展示你的 Vue 3 静态博客 |
 
 > **重要规则**: 确保上述路由在列表中已正确显示为 **“Workers 已在此路由上禁用”**。
 
