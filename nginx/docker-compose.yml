@@ -1,0 +1,17 @@
+services:
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx-https
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf:ro
+      # ⚠️ 关键改动：把宿主机的 ../cert 目录，挂载到容器内的 /etc/nginx/ssl
+      - ../cert:/etc/nginx/ssl:ro
+    # 🌟 核心改动：严格限制容器所能使用的系统资源
+    deploy:
+      resources:
+        limits:
+          memory: 50M    # 严格限制最大内存为 50MB

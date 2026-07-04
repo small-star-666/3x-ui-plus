@@ -18,4 +18,7 @@ services:
     # 推荐改为 always，确保机器因任何原因重启（如 AWS 维护、内存溢出后系统放回）容器都能立刻自愈
     restart: always
     # ========== 核心硬限制（200M 防爆盾） ==========
-    mem_limit: 200m
+    deploy:
+      resources:
+        limits:
+          memory: 200M    # 严格限制最大内存为 200M
