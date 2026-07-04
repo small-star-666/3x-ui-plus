@@ -15,11 +15,11 @@
 3.  点击左侧菜单栏的 **「Workers 路由 (Workers Routes)」**。
 4.  点击 **「添加路由 (Add route)」**，依次配置以下规则（注意：设置 **Worker: 禁用 (Disabled)**）：
 
-| 路由路径 | Worker 设置 |
-| :--- | :--- |
-| `xxx.xyz/cl*` | 禁用 |
-| `xxx.xyz/su*` | 禁用 |
-| `xxx.xyz/path*` | 禁用 |
+| 路由路径             | Worker 设置 |
+|:-----------------| :--- |
+| `xxx.xyz/cl/*`   | 禁用 |
+| `xxx.xyz/su/*`   | 禁用 |
+| `xxx.xyz/path/*` | 禁用 |
 | `xxx.xyz/admin*` | 禁用 |
 
 > **重要规则**: 确保上述路由在列表中已正确显示为 **“Workers 已在此路由上禁用”**。
