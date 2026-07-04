@@ -23,16 +23,3 @@ echo "启动 Docker 并设置开机自启..."
 sudo systemctl enable docker
 sudo systemctl start docker
 sudo systemctl status docker --no-pager
-
-# ====================================================================
-# 2. 安装 Git 并拉取目标项目
-# ====================================================================
-echo "开始安装 Git 并克隆 3x-ui-plus 仓库..."
-sudo apt install git -y
-git clone https://github.com/small-star-666/3x-ui-plus.git
-
-echo "切换至指定 cert 分支..."
-cd 3x-ui-plus || exit
-git checkout cert
-
-echo "基础环境安装完成！请在 cert 文件夹中放入你的公钥 gegeda.crt 和私钥证书 gegeda.key。"
