@@ -1,3 +1,28 @@
+# Cloudflare Rule (注意：所有 xxx.xyz 请改为自己的域名)
+
+## 1. 场景目标
+* **后台访问**：拦截 `/maigejuzi666` 跳转到后台管理页面。
+* **订阅不用端口**：拦截 `xxx.xyz/cl*`、`xxx.xyz/su*` 加上端口访问
+* **规则过滤**：拦截 `xxx.xyz/cl*`、`xxx.xyz/su*` 等路径跳转到 Pages 。
+
+---
+
+### 操作步骤：
+1.  登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)。
+2.  选择你的域名 `xxx.xyz` 右边的三个点符号。
+3. 点击 **「创建规则 」**。
+
+| 规则名称               | 请求匹配表达式                                                                                                                                                                                                             | 类型 | URL                                                        | 状态  |
+|:-------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---|:-----------------------------------------------------------|:----|
+| `maigejuzi666`     | (http.host eq "maigejuzi666.xxx.xyz.xyz")                                                                                                                                                                            | 静态 | https://xxx.xyz.xyz:2087/maigejuzi666/                      | 302 |
+| `sub`              | (http.request.full_uri contains "https://sub.xxx.xyz.xyz/cl") or (http.request.full_uri contains "https://sub.xxx.xyz.xyz/su")                                                                                        | 动态 | concat("https://xxx.xyz.xyz:8443", http.request.uri.path)   | 302 |
+| `su-cl-path-admin` | (cf.edge.server_port eq 443 and (http.request.uri.path wildcard "/su/*" or http.request.uri.path wildcard "/cl/*" or http.request.uri.path wildcard "/path/*" or http.request.uri.path wildcard "/maigejuzi666/*")) | 动态 | concat("https://", http.host, "/")                         | 302 |
+
+> **重要规则**: 确保上述规则在列表中已正确显示为 **“活动”**。
+
+---
+
+
 # Cloudflare 路由流量分流与自动化部署指南
 
 ## 1. 场景目标
@@ -36,35 +61,17 @@
 3.  切换到 **「Pages」** 选项卡。
 4.  点击 **「连接到 Git (Connect to Git)」**，授权并选中你的前端仓库（如 `fake-web`）。
 
-### 第二步：配置构建参数
-在配置构建设置时，填入以下关键信息：
-* **框架预设 (Framework preset)**: `Vite`
-* **构建命令 (Build command)**: `npm run build`
-* **输出目录 (Output directory)**: `dist`
-
-### 第三步：完成并部署
+### 第二步：完成并部署
 1.  点击 **「保存并部署 (Save and deploy)」**。
 2.  Cloudflare 将自动拉取代码、执行 `npm install` 及 `npm run build`。
-3.  部署完成后，系统会为你分配一个 `*.pages.dev` 的预览域名。
 
 ---
 
-## 4. 整体流量转发逻辑说明
-
-| 路径匹配                     | 行为逻辑 | 最终处理 |
-|:-------------------------| :--- | :--- |
-| `xxx.xyz/cl/*`           | 命中“禁用”路由 | 直接穿透至后端服务器 |
-| `xxx.xyz/su/*`           | 命中“禁用”路由 | 直接穿透至后端服务器 |
-| `xxx.xyz/path/*`         | 命中“禁用”路由 | 直接穿透至后端服务器 |
-| `xxx.xyz/maigejuzi666/*` | 命中“禁用”路由 | 直接穿透至后端服务器 |
-| `xxx.xyz/*`              | 命中 Pages 项目 | 展示你的 Vue 3 静态博客 |
-
----
-
-## 5. 日常维护建议
+## 4. 日常维护建议
 * **更新博客内容**：直接在本地 `src/App.vue` 中修改，`git push` 到 GitHub，Cloudflare 会在 1-2 分钟内自动完成全量覆盖。
 * **新增穿透路径**：如果未来增加了新的后端服务路径，记得同步到“Workers 路由”页面，执行相同的“禁用”操作。
 * **查看部署日志**：若自动构建失败，请进入 `Workers 和 Pages` -> `项目名称` -> `Deployments` 查看详细错误日志。
 
 ---
 **配置完成状态**：已实现流量的“精确拦截”与“自动化托管”。
+
