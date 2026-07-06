@@ -12,11 +12,11 @@
 2.  选择你的域名 `xxx.xyz` 右边的三个点符号。
 3. 点击 **「创建规则 」**。
 
-| 规则名称               | 请求匹配表达式                                                                                                                                                                                                             | 类型 | URL                                                        | 状态  |
-|:-------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---|:-----------------------------------------------------------|:----|
-| `maigejuzi666`     | (http.host eq "maigejuzi666.xxx.xyz.xyz")                                                                                                                                                                            | 静态 | https://xxx.xyz.xyz:2087/maigejuzi666/                      | 302 |
-| `sub`              | (http.request.full_uri contains "https://sub.xxx.xyz.xyz/cl") or (http.request.full_uri contains "https://sub.xxx.xyz.xyz/su")                                                                                        | 动态 | concat("https://xxx.xyz.xyz:8443", http.request.uri.path)   | 302 |
-| `su-cl-path-admin` | (cf.edge.server_port eq 443 and (http.request.uri.path wildcard "/su/*" or http.request.uri.path wildcard "/cl/*" or http.request.uri.path wildcard "/path/*" or http.request.uri.path wildcard "/maigejuzi666/*")) | 动态 | concat("https://", http.host, "/")                         | 302 |
+| 规则名称               | 请求匹配表达式                                                                                                                                                                                                             | 类型 | URL                                                       | 状态  |
+|:-------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---|:----------------------------------------------------------|:----|
+| `maigejuzi666`     | (http.host eq "maigejuzi666.xxx.xyz")                                                                                                                                                                               | 静态 | https://xxx.xyz:2087/maigejuzi666/                        | 302 |
+| `sub`              | (http.host eq "sub.gegeda.xyz" and (starts_with(http.request.uri.path, "/cl") or starts_with(http.request.uri.path, "/su")))                                                                                             | 动态 | concat("https://xxx.xyz:8443", http.request.uri.path)     | 302 |
+| `su-cl-path-admin` | (cf.edge.server_port eq 443 and (http.request.uri.path wildcard "/su/*" or http.request.uri.path wildcard "/cl/*" or http.request.uri.path wildcard "/path/*" or http.request.uri.path wildcard "/maigejuzi666/*")) | 动态 | concat("https://", http.host, "/")                        | 302 |
 
 > **重要规则**: 确保上述规则在列表中已正确显示为 **“活动”**。
 
